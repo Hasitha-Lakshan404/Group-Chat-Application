@@ -18,6 +18,10 @@ public class ChatFormController {
     public TextField txtTextMsg;
     public ImageView imgSendMsg;
 
+    public void initialize(){
+
+    }
+
     public void imgSendMsgOnAction(MouseEvent mouseEvent) {
     }
 }
