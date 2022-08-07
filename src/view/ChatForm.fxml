@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.ChatFormController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="711.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#27425b" height="89.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="412.0" />
+      <TextArea fx:id="txtTextArea" layoutY="89.0" prefHeight="544.0" prefWidth="412.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8fafc" height="78.0" layoutY="633.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="412.0" />
+      <TextField fx:id="txtTextMsg" layoutX="14.0" layoutY="649.0" prefHeight="47.0" prefWidth="308.0" promptText="Text..." style="-fx-border-radius: 20px; -fx-background-radius: 20px; -fx-background-color: #cad0db;" />
+      <ImageView fx:id="imgSendMsg" fitHeight="41.0" fitWidth="43.0" layoutX="344.0" layoutY="653.0" onMouseClicked="#imgSendMsgOnAction" pickOnBounds="true">
+         <image>
+            <Image url="@../assets/iconSent.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="27.0" prefHeight="32.0" prefWidth="412.0" text="Client " textFill="#e8dbdb">
+         <font>
+            <Font name="Book Antiqua" size="25.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
