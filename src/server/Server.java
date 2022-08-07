@@ -20,7 +20,6 @@ public class Server {
         System.out.println("Waiting for Client ...");
         accept= serverSocket.accept();
         System.out.println("Client Connected");
-
-
     }
+
 }
