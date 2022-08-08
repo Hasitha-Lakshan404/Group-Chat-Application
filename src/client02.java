@@ -8,11 +8,11 @@ import java.io.IOException;
 /**
  * @author : Hasitha Lakshan
  * Project :Group Chat Application
- * Date :8/7/2022
- * Time :4:29 PM
+ * Date :8/8/2022
+ * Time :2:23 PM
  */
 
-public class AppInitializer extends Application  {
+public class client02 extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -28,6 +28,4 @@ public class AppInitializer extends Application  {
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
-
-
 }
