@@ -110,7 +110,7 @@ public class ChatFormController extends Thread {
 //                System.out.println("cmd"+cmd);
 
                 System.out.println("cmd="+cmd+"-----"+"UserName"+txtUserName.getText());
-                if(!cmd.equalsIgnoreCase(txtUserName.getText())){
+                if(!cmd.equalsIgnoreCase(txtUserName.getText()+":")){
                     txtTextArea.appendText(msg + "\n");
                 }
 
