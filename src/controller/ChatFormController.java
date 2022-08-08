@@ -1,7 +1,9 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -10,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -100,14 +104,11 @@ public class ChatFormController extends Thread {
                 }
                 System.out.println(fullMsg);
 //                txtTextArea.appendText(cmd+" "+fullMsg+"\n");
-                if (cmd.equalsIgnoreCase("Client" + ":")) {
+                /*if (cmd.equalsIgnoreCase("Client" + ":")) {
                     continue;
                 } else if (fullMsg.toString().equalsIgnoreCase("bye")) {
                     break;
-                }
-//                System.out.println("msg-"+msg);
-//                System.out.println("Fullmsg-"+fullMsg);
-//                System.out.println("cmd"+cmd);
+                }*/
 
                 System.out.println("cmd="+cmd+"-----"+"UserName"+txtUserName.getText());
                 if(!cmd.equalsIgnoreCase(txtUserName.getText()+":")){
@@ -115,9 +116,9 @@ public class ChatFormController extends Thread {
                 }
 
             }
-            reader.close();
-            writer.close();
-            socket.close();
+//            reader.close();
+//            writer.close();
+//            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,6 +134,8 @@ public class ChatFormController extends Thread {
         txtTextMsg.clear();
         if(msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
             System.exit(0);
+            Stage stage = (Stage) txtTextMsg.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -140,5 +143,16 @@ public class ChatFormController extends Thread {
         txtUserName.setText(txtNicName.getText().trim());
         pnePopUp.setVisible(false);
         apnChatForm.setVisible(true);
+    }
+
+    public void AddClientOnAction(MouseEvent mouseEvent) throws IOException {
+        Stage stage=new Stage();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ChatForm.fxml"))));
+        stage.setResizable(false);
+        //primaryStage.getIcons().add(new Image("location"));
+        stage.setTitle("sample title");
+        stage.centerOnScreen();
+        stage.show();
+
     }
 }
