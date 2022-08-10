@@ -1,8 +1,6 @@
 package controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -13,21 +11,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
-import java.util.Collection;
 
 /**
  * @author : Hasitha Lakshan
@@ -37,7 +33,7 @@ import java.util.Collection;
  */
 
 public class ColourChatRoomController extends Thread {
-//    public TextArea txtTextArea;
+    //    public TextArea txtTextArea;
     public TextField txtTextMsg;
     public ImageView imgSendMsg;
     public AnchorPane apnChatForm;
@@ -71,12 +67,10 @@ public class ColourChatRoomController extends Thread {
         try {
             while (true) {
 
-                String o = reader.getClass().getName();
-                HBox hBox=null;
-
-                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
-
-                System.out.println("=========oooooo=========="+o);
+//                String o = reader.getClass().getName();
+//                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
+//
+//                System.out.println("=========oooooo=========="+o);
                 /*if(reader.equals(HBox)){
 
                 }
@@ -87,7 +81,7 @@ public class ColourChatRoomController extends Thread {
                 }*/
 
 
-                /*String msg = reader.readLine();
+                String msg = reader.readLine();
                 String[] tokens = msg.split(" ");
                 String cmd = tokens[0];
                 System.out.println(cmd);
@@ -99,55 +93,99 @@ public class ColourChatRoomController extends Thread {
 
                 System.out.println(fullMsg);
                 String[] msgToAr = msg.split(" ");
-                String st="";
-                for (int i = 0; i < msgToAr.length-1; i++) {
-                    st+=msgToAr[i+1]+" ";
+                String st = "";
+                for (int i = 0; i < msgToAr.length - 1; i++) {
+                    st += msgToAr[i + 1] + " ";
                 }
 //======================================================================
-                System.out.println("msg-"+msg);
-                System.out.println("Fullmsg-"+fullMsg);
-                System.out.println("st :"+st);
+                System.out.println("msg-" + msg);
+                System.out.println("Fullmsg-" + fullMsg);
+                System.out.println("st :" + st);
 
 
-                Text text=new Text(st);
-
-                text.setFill(Color.WHITE);
-                text.getStyleClass().add("message");
-                TextFlow tempFlow=new TextFlow();
-
-                if(!cmd.equalsIgnoreCase(txtUserName.getText() + ":")){
-                    Text txtName=new Text(cmd + "\n");
-                    txtName.getStyleClass().add("txtName");
-                    tempFlow.getChildren().add(txtName);
+                Text text = new Text(st);
+                String firstChars = "";
+                if (st.length() > 3) {
+                    firstChars = st.substring(0, 3);
+                    System.out.println("==First 3 :" + firstChars);
                 }
 
-                tempFlow.getChildren().add(text);
-                tempFlow.setMaxWidth(200); //200
 
-                TextFlow flow=new TextFlow(tempFlow);
+                if (firstChars.equalsIgnoreCase("img")) {
+                    //for the Images
 
-                HBox hBox=new HBox(12); //12
+                    st = st.substring(3, st.length() - 1);
+                    System.out.println("new ST===== " + st.trim());
 
-                //=================================================
 
-                System.out.println("cmd=" + cmd + "-----" + "UserName" + txtUserName.getText());
-                if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
+                    // BufferedImage bufferedImage = ImageIO.read(filePath);
+//                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    File file = new File("C:\\Users\\DELL\\Downloads\\icon_fffff_2.gif");
+                    Image image = new Image(file.toURI().toString());
+//                    imageView = new ImageView(image);
 
-                    tempFlow.getStyleClass().add("tempFlowFlipped");
-                    flow.getStyleClass().add("textFlowFlipped");
-                    vboxChat.setAlignment(Pos.TOP_LEFT);
-                    hBox.setAlignment(Pos.CENTER_LEFT);
-                    hBox.getChildren().add(flow);
+                    ImageView imageView = new ImageView(image);
+//            imageView.fitHeightProperty();
+//            imageView.fitWidthProperty();
 
-                }else{
-                    text.setFill(Color.WHITE);
-                    tempFlow.getStyleClass().add("tempFlow");
-                    flow.getStyleClass().add("textFlow");
+                    imageView.setFitHeight(200);
+                    imageView.setFitWidth(300);
+
+//                        double height = image.getHeight();
+//                        double width = image.getWidth();
+
+                    HBox hBox = new HBox(12);
                     hBox.setAlignment(Pos.BOTTOM_RIGHT);
-                    hBox.getChildren().add(flow);
+
+                    hBox.getChildren().addAll(imageView);
+
+
+                    Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
+
+//                    writer.println(hBox);
+
+
+                } else {
+                    //For the Text
+                    text.setFill(Color.WHITE);
+                    text.getStyleClass().add("message");
+                    TextFlow tempFlow = new TextFlow();
+
+                    if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
+                        Text txtName = new Text(cmd + "\n");
+                        txtName.getStyleClass().add("txtName");
+                        tempFlow.getChildren().add(txtName);
+                    }
+
+                    tempFlow.getChildren().add(text);
+                    tempFlow.setMaxWidth(200); //200
+
+                    TextFlow flow = new TextFlow(tempFlow);
+
+                    HBox hBox = new HBox(12); //12
+
+                    //=================================================
+
+                    System.out.println("cmd=" + cmd + "-----" + "UserName" + txtUserName.getText());
+                    if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
+
+                        tempFlow.getStyleClass().add("tempFlowFlipped");
+                        flow.getStyleClass().add("textFlowFlipped");
+                        vboxChat.setAlignment(Pos.TOP_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.getChildren().add(flow);
+
+                    } else {
+                        text.setFill(Color.WHITE);
+                        tempFlow.getStyleClass().add("tempFlow");
+                        flow.getStyleClass().add("textFlow");
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.getChildren().add(flow);
+                    }
+                    hBox.getStyleClass().add("hbox");
+                    Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
                 }
-                hBox.getStyleClass().add("hbox");
-                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));*/
+
 
             }
 
@@ -204,10 +242,11 @@ public class ColourChatRoomController extends Thread {
         fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image");
         this.filePath = fileChooser.showOpenDialog(stage);
+        writer.println(txtUserName.getText() + " " + "img" + filePath.getPath());
 //        txtTextMsg.setText(filePath.getPath());
 //        saveControl = true;
 
-        try {
+        /*try {
             BufferedImage bufferedImage = ImageIO.read(filePath);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             ImageView imageView=new ImageView(image);
@@ -233,7 +272,7 @@ public class ColourChatRoomController extends Thread {
 
         } catch (IOException e) {
             System.err.println(e.getMessage());
-        }
+        }*/
     }
 
 }
