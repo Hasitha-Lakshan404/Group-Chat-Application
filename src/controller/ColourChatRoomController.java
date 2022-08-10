@@ -3,12 +3,11 @@ package controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -35,7 +34,7 @@ import java.net.Socket;
  * Time :11:11 AM
  */
 
-public class TestChatFormController extends Thread {
+public class ColourChatRoomController extends Thread {
 //    public TextArea txtTextArea;
     public TextField txtTextMsg;
     public ImageView imgSendMsg;
@@ -79,13 +78,7 @@ public class TestChatFormController extends Thread {
                 }
 
                 System.out.println(fullMsg);
-//                txtTextArea.appendText(cmd+" "+fullMsg+"\n");
-                /*if (cmd.equalsIgnoreCase("Client" + ":")) {
-                    continue;
-                }*/
-                /*if (fullMsg.toString().equalsIgnoreCase("bye")) {
-                    break;
-                }*/
+
                 String[] msgToAr = msg.split(" ");
                 String st="";
                 for (int i = 0; i < msgToAr.length-1; i++) {
@@ -122,15 +115,6 @@ public class TestChatFormController extends Thread {
 
                 System.out.println("cmd=" + cmd + "-----" + "UserName" + txtUserName.getText());
                 if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
-                    /*HBox hBox=new HBox(12);
-                    hBox.setAlignment(Pos.CENTER_LEFT);
-
-
-                    Text text = new Text(msg);*/
-
-
-//                    hBox.getChildren().add(text);
-//                    txtTextArea.appendText(msg + "\n");
 
                     tempFlow.getStyleClass().add("tempFlowFlipped");
                     flow.getStyleClass().add("textFlowFlipped");
@@ -189,8 +173,8 @@ public class TestChatFormController extends Thread {
         Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/TestChatForm.fxml"))));
         stage.setResizable(false);
-        //primaryStage.getIcons().add(new Image("location"));
-        stage.setTitle("sample title");
+        stage.getIcons().add(new Image("assets/messenger.gif"));
+        stage.setTitle("Messenger");
         stage.centerOnScreen();
         stage.show();
 

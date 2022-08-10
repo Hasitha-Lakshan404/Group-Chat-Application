@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class Client01 extends Application {
 
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/TestChatForm.fxml"))));
         primaryStage.setResizable(false);
-        //primaryStage.getIcons().add(new Image("location"));
-        primaryStage.setTitle("sample title");
+        primaryStage.getIcons().add(new Image("assets/messenger.gif"));
+        primaryStage.setTitle("Messenger");
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
