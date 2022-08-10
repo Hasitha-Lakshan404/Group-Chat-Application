@@ -77,6 +77,7 @@ public class TestChatFormController extends Thread {
                 for (int i = 1; i < tokens.length; i++) {
                     fullMsg.append(tokens[i]);
                 }
+
                 System.out.println(fullMsg);
 //                txtTextArea.appendText(cmd+" "+fullMsg+"\n");
                 /*if (cmd.equalsIgnoreCase("Client" + ":")) {
@@ -85,15 +86,26 @@ public class TestChatFormController extends Thread {
                 /*if (fullMsg.toString().equalsIgnoreCase("bye")) {
                     break;
                 }*/
+                String[] msgToAr = msg.split(" ");
+                String st="";
+                for (int i = 0; i < msgToAr.length-1; i++) {
+                    st+=msgToAr[i+1]+" ";
+                    System.out.println("meka meka "+msgToAr[0]+" -- "+msgToAr[i+1]);
+                }
 //======================================================================
-                Text text=new Text(msg);
+                System.out.println("msg-"+msg);
+                System.out.println("Fullmsg-"+fullMsg);
+                System.out.println("st :"+st);
+
+
+                Text text=new Text(st);
 
                 text.setFill(Color.WHITE);
                 text.getStyleClass().add("message");
                 TextFlow tempFlow=new TextFlow();
 
                 if(!cmd.equalsIgnoreCase(txtUserName.getText() + ":")){
-                    Text txtName=new Text(msg + "\n");
+                    Text txtName=new Text(cmd + "\n");
                     txtName.getStyleClass().add("txtName");
                     tempFlow.getChildren().add(txtName);
                 }
