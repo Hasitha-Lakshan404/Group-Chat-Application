@@ -120,7 +120,7 @@ public class ColourChatRoomController extends Thread {
 
                     // BufferedImage bufferedImage = ImageIO.read(filePath);
 //                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                    File file = new File("C:\\Users\\DELL\\Downloads\\icon_fffff_2.gif");
+                    File file = new File(st);
                     Image image = new Image(file.toURI().toString());
 //                    imageView = new ImageView(image);
 
@@ -131,14 +131,27 @@ public class ColourChatRoomController extends Thread {
                     imageView.setFitHeight(200);
                     imageView.setFitWidth(300);
 
-//                        double height = image.getHeight();
-//                        double width = image.getWidth();
 
-                    HBox hBox = new HBox(12);
+                    HBox hBox = new HBox(60);
                     hBox.setAlignment(Pos.BOTTOM_RIGHT);
 
-                    hBox.getChildren().addAll(imageView);
+//                    hBox.getChildren().addAll(imageView);
 
+                    if (!cmd.equalsIgnoreCase(txtUserName.getText())) {
+
+//                        tempFlow.getStyleClass().add("tempFlowFlipped");
+//                        flow.getStyleClass().add("textFlowFlipped");
+                        vboxChat.setAlignment(Pos.TOP_LEFT);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.getChildren().add(imageView);
+
+                    } else {
+//                        text.setFill(Color.WHITE);
+//                        tempFlow.getStyleClass().add("tempFlow");
+//                        flow.getStyleClass().add("textFlow");
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+                        hBox.getChildren().add(imageView);
+                    }
 
                     Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
 
