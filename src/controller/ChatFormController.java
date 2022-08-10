@@ -13,10 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.*;
-import java.net.ServerSocket;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -41,42 +42,8 @@ public class ChatFormController extends Thread {
     PrintWriter writer;
     Socket socket;
 
-    /*final int PORT=5000;
 
-    ServerSocket serverSocket;
-    Socket socket;
-    DataInputStream dataInputStream;
-    DataOutputStream dataOutputStream;
-    String message ="";*/
-
-
-
-    public void initialize(){
-/*
-        new Thread(() -> {
-            try {
-                socket=new Socket("localhost",PORT);
-                dataOutputStream=new DataOutputStream(socket.getOutputStream());
-                dataInputStream=new DataInputStream(socket.getInputStream());
-
-                while (!message.equals("bye")){
-                    message=dataInputStream.readUTF();
-                    System.out.println(message);
-                    txtTextArea.appendText("\nserver: "+message);
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-*/
-
-
-
-
-
-
+    public void initialize() {
         try {
             socket = new Socket("localhost", 5000);
             System.out.println("Socket is connected with server!");
@@ -89,7 +56,7 @@ public class ChatFormController extends Thread {
     }
 
     @Override
-    public void run(){
+    public void run() {
         try {
             while (true) {
 
@@ -106,19 +73,18 @@ public class ChatFormController extends Thread {
 //                txtTextArea.appendText(cmd+" "+fullMsg+"\n");
                 /*if (cmd.equalsIgnoreCase("Client" + ":")) {
                     continue;
-                } else if (fullMsg.toString().equalsIgnoreCase("bye")) {
-                    break;
                 }*/
+                if (fullMsg.toString().equalsIgnoreCase("bye")) {
+                    break;
+                }
 
-                System.out.println("cmd="+cmd+"-----"+"UserName"+txtUserName.getText());
-                if(!cmd.equalsIgnoreCase(txtUserName.getText()+":")){
+                System.out.println("cmd=" + cmd + "-----" + "UserName" + txtUserName.getText());
+                if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
                     txtTextArea.appendText(msg + "\n");
                 }
 
             }
-//            reader.close();
-//            writer.close();
-//            socket.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,8 +98,7 @@ public class ChatFormController extends Thread {
         txtTextArea.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         txtTextArea.appendText("Me: " + msg + "\n");
         txtTextMsg.clear();
-        if(msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
-            System.exit(0);
+        if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
             Stage stage = (Stage) txtTextMsg.getScene().getWindow();
             stage.close();
         }
@@ -146,7 +111,7 @@ public class ChatFormController extends Thread {
     }
 
     public void AddClientOnAction(MouseEvent mouseEvent) throws IOException {
-        Stage stage=new Stage();
+        Stage stage = new Stage();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ChatForm.fxml"))));
         stage.setResizable(false);
         //primaryStage.getIcons().add(new Image("location"));
@@ -154,5 +119,7 @@ public class ChatFormController extends Thread {
         stage.centerOnScreen();
         stage.show();
 
+
     }
+
 }
