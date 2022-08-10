@@ -21,7 +21,7 @@ public class Client01 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/ChatForm.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/TestChatForm.fxml"))));
         primaryStage.setResizable(false);
         //primaryStage.getIcons().add(new Image("location"));
         primaryStage.setTitle("sample title");
