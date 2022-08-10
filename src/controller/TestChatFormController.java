@@ -111,11 +111,11 @@ public class TestChatFormController extends Thread {
                 }
 
                 tempFlow.getChildren().add(text);
-                tempFlow.setMaxWidth(200);
+                tempFlow.setMaxWidth(200); //200
 
                 TextFlow flow=new TextFlow(tempFlow);
 
-                HBox hBox=new HBox(12);
+                HBox hBox=new HBox(12); //12
 
                 //=================================================
 
