@@ -1,31 +1,33 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.Socket;
+import java.util.Collection;
 
 /**
  * @author : Hasitha Lakshan
@@ -49,6 +51,8 @@ public class ColourChatRoomController extends Thread {
     PrintWriter writer;
     Socket socket;
 
+    private FileChooser fileChooser;
+    private File filePath;
 
     public void initialize() {
         try {
@@ -67,7 +71,23 @@ public class ColourChatRoomController extends Thread {
         try {
             while (true) {
 
-                String msg = reader.readLine();
+                String o = reader.getClass().getName();
+                HBox hBox=null;
+
+                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
+
+                System.out.println("=========oooooo=========="+o);
+                /*if(reader.equals(HBox)){
+
+                }
+
+                if (o instanceof JFXButton) {
+                    JFXButton btn = (JFXButton) o;
+
+                }*/
+
+
+                /*String msg = reader.readLine();
                 String[] tokens = msg.split(" ");
                 String cmd = tokens[0];
                 System.out.println(cmd);
@@ -78,12 +98,10 @@ public class ColourChatRoomController extends Thread {
                 }
 
                 System.out.println(fullMsg);
-
                 String[] msgToAr = msg.split(" ");
                 String st="";
                 for (int i = 0; i < msgToAr.length-1; i++) {
                     st+=msgToAr[i+1]+" ";
-                    System.out.println("meka meka "+msgToAr[0]+" -- "+msgToAr[i+1]);
                 }
 //======================================================================
                 System.out.println("msg-"+msg);
@@ -112,7 +130,6 @@ public class ColourChatRoomController extends Thread {
 
                 //=================================================
 
-
                 System.out.println("cmd=" + cmd + "-----" + "UserName" + txtUserName.getText());
                 if (!cmd.equalsIgnoreCase(txtUserName.getText() + ":")) {
 
@@ -130,7 +147,7 @@ public class ColourChatRoomController extends Thread {
                     hBox.getChildren().add(flow);
                 }
                 hBox.getStyleClass().add("hbox");
-                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
+                Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));*/
 
             }
 
@@ -179,4 +196,44 @@ public class ColourChatRoomController extends Thread {
         stage.show();
 
     }
+
+
+    public void chooseImageButton(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        this.filePath = fileChooser.showOpenDialog(stage);
+//        txtTextMsg.setText(filePath.getPath());
+//        saveControl = true;
+
+        try {
+            BufferedImage bufferedImage = ImageIO.read(filePath);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            ImageView imageView=new ImageView(image);
+//            imageView.fitHeightProperty();
+//            imageView.fitWidthProperty();
+
+            imageView.setFitHeight(200);
+            imageView.setFitWidth(300);
+
+            double height = image.getHeight();
+            double width = image.getWidth();
+
+            HBox hBox=new HBox(12);
+            hBox.setAlignment(Pos.BOTTOM_RIGHT);
+
+            hBox.getChildren().addAll(imageView);
+
+
+
+            Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
+
+            writer.println(hBox);
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 }
