@@ -132,7 +132,7 @@ public class ColourChatRoomController extends Thread {
                     imageView.setFitWidth(300);
 
 
-                    HBox hBox = new HBox(60);
+                    HBox hBox = new HBox(10);
                     hBox.setAlignment(Pos.BOTTOM_RIGHT);
 
 //                    hBox.getChildren().addAll(imageView);
@@ -143,6 +143,10 @@ public class ColourChatRoomController extends Thread {
 //                        flow.getStyleClass().add("textFlowFlipped");
                         vboxChat.setAlignment(Pos.TOP_LEFT);
                         hBox.setAlignment(Pos.CENTER_LEFT);
+
+
+                        Text text1=new Text("  "+cmd+" :");
+                        hBox.getChildren().add(text1);
                         hBox.getChildren().add(imageView);
 
                     } else {
@@ -151,6 +155,9 @@ public class ColourChatRoomController extends Thread {
 //                        flow.getStyleClass().add("textFlow");
                         hBox.setAlignment(Pos.BOTTOM_RIGHT);
                         hBox.getChildren().add(imageView);
+                        Text text1=new Text(": Me ");
+                        hBox.getChildren().add(text1);
+
                     }
 
                     Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
