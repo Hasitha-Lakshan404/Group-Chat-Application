@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -50,7 +50,12 @@ public class ColourChatRoomController extends Thread {
     private FileChooser fileChooser;
     private File filePath;
 
+
+
+
     public void initialize() {
+
+
         try {
             socket = new Socket("localhost", 5000);
 
@@ -186,7 +191,15 @@ public class ColourChatRoomController extends Thread {
 
 
     public void imgSendMsgOnAction(MouseEvent mouseEvent) throws IOException {
+        send();
+    }
 
+    private void go(){
+        txtUserName.setText(txtNicName.getText().trim());
+        pnePopUp.setVisible(false);
+        apnChatForm.setVisible(true);
+    }
+    private void send(){
         String msg = txtTextMsg.getText();
         writer.println(txtUserName.getText() + ": " + txtTextMsg.getText());
 
@@ -198,9 +211,7 @@ public class ColourChatRoomController extends Thread {
     }
 
     public void btnGoOnAction(ActionEvent actionEvent) {
-        txtUserName.setText(txtNicName.getText().trim());
-        pnePopUp.setVisible(false);
-        apnChatForm.setVisible(true);
+        go();
     }
 
     public void AddClientOnAction(MouseEvent mouseEvent) throws IOException {
@@ -224,4 +235,18 @@ public class ColourChatRoomController extends Thread {
 
     }
 
+    public void msgEnterKeyOnAction(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            send();
+        }
+    }
+
+    public void userNameEnterKeyOnAction(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            go();
+        }
+
+
+
+    }
 }
