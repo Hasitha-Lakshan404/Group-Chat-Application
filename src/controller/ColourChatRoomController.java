@@ -177,8 +177,6 @@ public class ColourChatRoomController extends Thread {
                     hBox.getStyleClass().add("hbox");
                     Platform.runLater(() -> vboxChat.getChildren().addAll(hBox));
                 }
-
-
             }
 
         } catch (Exception e) {
@@ -207,7 +205,7 @@ public class ColourChatRoomController extends Thread {
 
     public void AddClientOnAction(MouseEvent mouseEvent) throws IOException {
         Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/TestChatForm.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ColourChatForm.fxml"))));
         stage.setResizable(false);
         stage.getIcons().add(new Image("assets/messenger.gif"));
         stage.setTitle("Messenger");
@@ -215,7 +213,6 @@ public class ColourChatRoomController extends Thread {
         stage.show();
 
     }
-
 
     public void chooseImageButton(MouseEvent mouseEvent) {
 

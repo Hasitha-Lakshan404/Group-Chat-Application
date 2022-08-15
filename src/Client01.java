@@ -22,7 +22,7 @@ public class Client01 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/TestChatForm.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/ColourChatForm.fxml"))));
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("assets/messenger.gif"));
         primaryStage.setTitle("Messenger");
